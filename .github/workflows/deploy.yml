@@ -1,0 +1,39 @@
+name: Deploy Python App via FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout the repository code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Set up Python (optional, if you need to run tests or build steps)
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # 3. Deploy files to VPS via FTP
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Local directory to sync (default is root './')
+          local-dir: ./
+          # Remote path on your VPS FTP server (change to your web root or app path)
+          server-dir: /public_html/my_python_app/
+          # Exclude git files or virtual environments
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/venv/**
+            **/__pycache__/**
+            **/*.pyc
