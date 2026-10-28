@@ -21,7 +21,7 @@ jobs:
 
       # 3. Deploy files to VPS via FTP
       - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
@@ -29,7 +29,7 @@ jobs:
           # Local directory to sync (default is root './')
           local-dir: ./
           # Remote path on your VPS FTP server (change to your web root or app path)
-          server-dir: /public_html/my_python_app/
+          server-dir: /poc_1menus_com/
           # Exclude git files or virtual environments
           exclude: |
             **/.git*
